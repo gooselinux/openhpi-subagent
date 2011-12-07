@@ -1,0 +1,193 @@
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiAnnouncementTable.c openhpi-subagent-2.3.4/src/saHpiAnnouncementTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiAnnouncementTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiAnnouncementTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -429,7 +429,7 @@ int announcement_add (saHpiAnnouncementT
+                 if (rc != SA_OK) {
+                         DEBUGMSGTL ((AGENT, 
+                         "announcement_add: oh_encode_entitypath Failed:"
+-                        " rc = %d\n",
++                        " rc = %s\n",
+                         oh_lookup_error(rc)));
+                 }
+ 
+@@ -450,7 +450,7 @@ int announcement_add (saHpiAnnouncementT
+                         if (rc != SA_OK) {
+                                 DEBUGMSGTL ((AGENT, 
+                                 "announcement_add: oh_encode_eventstate Failed:"
+-                                " rc = %d\n",
++                                " rc = %s\n",
+                                  oh_lookup_error(rc)));
+                         }	         	
+                 }
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiAreaTable.c openhpi-subagent-2.3.4/src/saHpiAreaTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiAreaTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiAreaTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -1111,7 +1111,7 @@ void saHpiAreaTable_set_reserve1( netsnm
+                                         dri_entry->entry_id++;
+                                 } else {
+                                         DEBUGMSGTL ((AGENT,"dri_entry->entry_id [%d]\n", dri_entry->entry_id));
+-                                        DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiAreaId_INDEX] [%d]\n", row_ctx->index.oids[saHpiAreaId_INDEX]));
++                                        DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiAreaId_INDEX] [%ld]\n", row_ctx->index.oids[saHpiAreaId_INDEX]));
+                                         DEBUGMSGTL ((AGENT, 
+                                                      "ERROR: saHpiAreaTable_set_reserve1() User specified AreaId invalid!!!\n"));
+                                         rc = SNMP_ERR_WRONGVALUE;
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiAutoInsertTimeoutTable.c openhpi-subagent-2.3.4/src/saHpiAutoInsertTimeoutTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiAutoInsertTimeoutTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiAutoInsertTimeoutTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -587,7 +587,7 @@ void saHpiAutoInsertTimeoutTable_set_res
+                             rc = SNMP_ERR_WRONGLENGTH;
+                             DEBUGMSGTL ((AGENT, 
+                             "COLUMN_SAHPIAUTOINSERTTIMEOUTFORINSERT"
+-                            " SNMP_ERR_WRONGLENGTH\n", rc));
++                            " SNMP_ERR_WRONGLENGTH\n"));
+                     }
+             }
+         break;
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiDomainInfoTable.c openhpi-subagent-2.3.4/src/saHpiDomainInfoTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiDomainInfoTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiDomainInfoTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -350,7 +350,7 @@ int handle_saHpiDomainInfoActiveEntries(
+                           netsnmp_agent_request_info   *reqinfo,
+                           netsnmp_request_info         *requests)
+ {
+-	DEBUGMSGTL ((AGENT, "handle_saHpiDomainInfoActiveEntries: Entry Count is %d\n", 
++	DEBUGMSGTL ((AGENT, "handle_saHpiDomainInfoActiveEntries: Entry Count is %ld\n", 
+ 					domain_info_entry_count));  	
+ 	
+     /* We are never called for a GETNEXT if it's registered as a
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiDomainReferenceTable.c openhpi-subagent-2.3.4/src/saHpiDomainReferenceTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiDomainReferenceTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiDomainReferenceTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -220,7 +220,7 @@ handle_saHpiDomainReferenceActiveEntries
+                           netsnmp_request_info         *requests)
+ {
+ 	DEBUGMSGTL ((AGENT, 
+-				"handle_saHpiDomainReferenceActiveEntries: Entry Count is %d\n", 
++				"handle_saHpiDomainReferenceActiveEntries: Entry Count is %ld\n", 
+ 				domain_reference_entry_count));
+ 
+     domain_reference_entry_count = CONTAINER_SIZE (cb.container);
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiEventLogInfoTable.c openhpi-subagent-2.3.4/src/saHpiEventLogInfoTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiEventLogInfoTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiEventLogInfoTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -1184,7 +1184,7 @@ void saHpiEventLogInfoTable_set_reserve1
+                             rc = SNMP_ERR_WRONGLENGTH;
+                             DEBUGMSGTL ((AGENT, 
+                             "COLUMN_SAHPIEVENTLOGINFOTIME"
+-                            " SNMP_ERR_WRONGLENGTH\n", rc));
++                            " SNMP_ERR_WRONGLENGTH\n"));
+                     }
+             }
+ 
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiFieldTable.c openhpi-subagent-2.3.4/src/saHpiFieldTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiFieldTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiFieldTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -1409,7 +1409,7 @@ void saHpiFieldTable_set_reserve1( netsn
+                     } else {
+                             DEBUGMSGTL ((AGENT,"***********************************************\n"));
+                             DEBUGMSGTL ((AGENT,"dria_entry->entry_id [%d]\n", dria_entry->entry_id));
+-                            DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiFieldId_INDEX] [%d]\n", 
++                            DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiFieldId_INDEX] [%ld]\n", 
+                                          row_ctx->index.oids[saHpiFieldId_field_INDEX]));
+                             DEBUGMSGTL ((AGENT, 
+                                          "ERROR: saHpiFieldTable_set_reserve1() User specified FieldId invalid!!!\n"));
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiHotSwapTable.c openhpi-subagent-2.3.4/src/saHpiHotSwapTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiHotSwapTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiHotSwapTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -997,7 +997,7 @@ void saHpiHotSwapTable_set_reserve1( net
+                             rc = SNMP_ERR_WRONGLENGTH;
+                             DEBUGMSGTL ((AGENT, 
+                             "COLUMN_SAHPIHOTSWAPEXTRACTTIMEOUT"
+-                            " SNMP_ERR_WRONGLENGTH\n", rc));
++                            " SNMP_ERR_WRONGLENGTH\n"));
+                     }
+             }
+             break;
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiRdrTable.c openhpi-subagent-2.3.4/src/saHpiRdrTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiRdrTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiRdrTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -492,7 +492,7 @@ int populate_saHpiRdrTable(SaHpiSessionI
+ 	
+ 	rdr_entry_count = CONTAINER_SIZE (cb.container);
+ 	
+-	DEBUGMSGTL ((AGENT, "populate_saHpiRdrTable: rdr_entry_count = %d\n", rdr_entry_count));
++	DEBUGMSGTL ((AGENT, "populate_saHpiRdrTable: rdr_entry_count = %ld\n", rdr_entry_count));
+ 		
+ 	
+ 	subagent_unlock(&hpi_lock_data);
+@@ -528,8 +528,8 @@ SaErrorT clear_rdr_container(SaHpiDomain
+                 do {
+                         rdr_ctx = CONTAINER_FIND(cb.container, row_idx);
+                         
+-                        DEBUGMSGTL ((AGENT, "CONTAINER_FIND: rdr_ctx: [%d] row_idx: [%d]"
+-                                            " counter [%d], rdr_entry_count [%d]\n", 
++                        DEBUGMSGTL ((AGENT, "CONTAINER_FIND: rdr_ctx: [%p] row_idx: [%p]"
++                                            " counter [%d], rdr_entry_count [%ld]\n", 
+                                      rdr_ctx, row_idx, counter++, rdr_entry_count));
+ 
+                         row_idx = CONTAINER_NEXT(cb.container, row_idx);
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiResourceTable.c openhpi-subagent-2.3.4/src/saHpiResourceTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiResourceTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiResourceTable.c	2009-10-26 11:04:07.000000000 +0100
+@@ -254,8 +254,8 @@ int populate_saHpiResourceTable(SaHpiSes
+ 
+ 		DEBUGMSGTL ((AGENT, "populate_saHpiResourceTable RptEntry.ResourceTag.DataLength rv = %d\n", 
+                              RptEntry.ResourceTag.DataLength));
+-		DEBUGMSGTL ((AGENT, "populate_saHpiResourceTable strlen(RptEntry.ResourceTag.Data) rv = %d\n", 
+-                             strlen((const char *)RptEntry.ResourceTag.Data))); 
++		DEBUGMSGTL ((AGENT, "populate_saHpiResourceTable strlen(RptEntry.ResourceTag.Data) rv = %ld\n", 
++                             (long)strlen((const char *)RptEntry.ResourceTag.Data))); 
+ 
+ 
+ 		/** INTEGER = ASN_INTEGER */
+@@ -322,7 +322,7 @@ int populate_saHpiResourceTable(SaHpiSes
+ 
+ 	resource_entry_count = CONTAINER_SIZE (cb.container);
+ 
+-	DEBUGMSGTL ((AGENT, "resource_entry_count = %d\n", resource_entry_count));
++	DEBUGMSGTL ((AGENT, "resource_entry_count = %ld\n", resource_entry_count));
+ 
+         subagent_unlock(&hpi_lock_data);
+ 
+@@ -630,7 +630,7 @@ DEBUGMSGTL ((AGENT, "**** MIB_FALSE [%d]
+ 	resource_entry_count = CONTAINER_SIZE (cb.container);
+ 
+ 
+-	DEBUGMSGTL ((AGENT, "async_event_resource: resource_entry_count = %d\n", 
++	DEBUGMSGTL ((AGENT, "async_event_resource: resource_entry_count = %ld\n", 
+                      resource_entry_count));
+ 
+ 	return rv;              
+@@ -828,7 +828,7 @@ int handle_saHpiResourceActiveEntries(ne
+ {
+ 
+ 	DEBUGMSGTL ((AGENT,     
+-		     "handle_saHpiResourceActiveEntries: Entry Count is %d\n", 
++		     "handle_saHpiResourceActiveEntries: Entry Count is %ld\n", 
+ 		     resource_entry_count));  
+ 
+ 	/* We are never called for a GETNEXT if it's registered as a
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiUserEventLogTable.c openhpi-subagent-2.3.4/src/saHpiUserEventLogTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiUserEventLogTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiUserEventLogTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -1076,7 +1076,7 @@ void saHpiUserEventLogTable_set_reserve1
+                     } else {
+                             DEBUGMSGTL ((AGENT,"***********************************************\n"));
+                             DEBUGMSGTL ((AGENT,"dr_entry->entry_id [%d]\n", dr_entry->entry_id));
+-                            DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiUserEventEntryId_event_log_INDEX] [%d]\n", 
++                            DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiUserEventEntryId_event_log_INDEX] [%ld]\n", 
+                                          row_ctx->index.oids[saHpiUserEventEntryId_event_log_INDEX]));
+                             DEBUGMSGTL ((AGENT, 
+                                          "ERROR: saHpiUserEventLogTable_set_reserve1() "
+diff -Nrup openhpi-subagent-2.3.4.orig/src/saHpiUserEventTable.c openhpi-subagent-2.3.4/src/saHpiUserEventTable.c
+--- openhpi-subagent-2.3.4.orig/src/saHpiUserEventTable.c	2006-09-13 17:41:26.000000000 +0200
++++ openhpi-subagent-2.3.4/src/saHpiUserEventTable.c	2009-10-26 11:04:01.000000000 +0100
+@@ -1158,7 +1158,7 @@ void saHpiUserEventTable_set_reserve1( n
+                     } else {
+                             DEBUGMSGTL ((AGENT,"***********************************************\n"));
+                             DEBUGMSGTL ((AGENT,"dr_entry->entry_id [%d]\n", dr_entry->entry_id));
+-                            DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiUserEventEntryId_event_INDEX] [%d]\n", 
++                            DEBUGMSGTL ((AGENT,"row_ctx->index.oids[saHpiUserEventEntryId_event_INDEX] [%ld]\n", 
+                                          row_ctx->index.oids[saHpiUserEventEntryId_event_INDEX]));
+                             DEBUGMSGTL ((AGENT, 
+                                          "ERROR: saHpiUserEventTable_set_reserve1() User specified UserEventEntryId invalid!!!\n"));

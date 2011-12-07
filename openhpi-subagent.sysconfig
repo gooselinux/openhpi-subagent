@@ -1,0 +1,4 @@
+#
+# options passed to hpiSubagent
+#
+OPTIONS=-f
